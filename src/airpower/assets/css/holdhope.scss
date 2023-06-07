@@ -1,0 +1,226 @@
+* {
+  font-family: "Nunito";
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  --primary-color: var(--el-color-primary);
+  --text-danger-color: #ff5050;
+  --link-main-color: #111;
+  --link-hover-color: var(--el-color-primary);
+  --title-color: #121212;
+  --label-color: #5a5a5a;
+  --sub-label-color: #909399;
+  /* 图标 */
+  --icon-warning-color: #fcb040;
+  --icon-error-color: #ff2121;
+  --icon-success-color: #67c23a;
+
+  font-family: "Nunito", Helvetica, "Hiragino Sans GB", "Microsoft Yahei", "微软雅黑", Arial;
+}
+
+.selector {
+  z-index: 100;
+}
+
+::-ms-clear,
+::-ms-reveal {
+  display: none;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  /*对垂直流动条有效*/
+  height: 5px;
+  /*对水平流动条有效*/
+}
+
+::-webkit-scrollbar-track {
+  /* background-color: transparent; */
+  border-radius: 10px;
+}
+
+/*定义滑块颜色、内阴影及圆角*/
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #eee;
+}
+
+/*定义两端按钮的样式*/
+
+::-webkit-scrollbar-button {
+  background-color: transparent;
+}
+
+/*定义右下角汇合处的样式*/
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+.el-message-box {
+  border-radius: 8px;
+  box-shadow: 0px 2px 29px 1px rgba(6, 15, 38, 0.1);
+
+  .el-message-box__header {
+    border-bottom: 1px solid #ebebeb;
+    padding: 15px 20px;
+
+    .el-message-box__title {
+      color: #333;
+      font-size: 16px;
+    }
+
+    .el-message-box__close {
+      font-size: 20px;
+      font-weight: bold;
+    }
+  }
+
+  .el-message-box__status + .el-message-box__message {
+    padding-left: 56px;
+  }
+
+  .el-message-box__content {
+    padding: 40px 20px;
+    font-size: 16px;
+
+    .iconfont,
+    .el-message-box__status {
+      font-size: 46px !important;
+    }
+
+    .icon-mes-warning {
+      color: var(--icon-warning-color);
+    }
+
+    .icon-mes-error {
+      color: var(--icon-error-color);
+    }
+
+    .icon-mes-sucess {
+      color: var(--icon-sucess-color);
+    }
+  }
+
+  .el-message-box__btns {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-start;
+  }
+
+  .el-message-box__btns .el-button {
+    margin: 5px;
+    padding: 10px 30px;
+    font-size: 14px;
+  }
+
+  .el-message-box__container {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+  }
+
+  .el-message-box__message {
+    flex: 1;
+    width: 0;
+  }
+
+  .el-message-box__message p {
+    word-wrap: break-word;
+    word-break: break-all;
+  }
+
+  .el-message-box__status.el-icon-error {
+    top: 50% !important;
+  }
+}
+
+/*form-item-content换行后错位问题*/
+.el-form-item__content {
+  align-items: flex-start;
+  height: fit-content;
+  word-break: break-all;
+}
+
+.el-select-dropdown__list {
+  width: 100%;
+}
+
+.el-table {
+  thead {
+    color: var(--label-color);
+  }
+
+  td {
+    .cell {
+      color: var(--sub-label-color);
+    }
+  }
+}
+
+.el-form-item__label {
+  color: var(--sub-label-color);
+}
+
+.el-date-editor {
+  // --el-date-editor-width: 100%;
+  width: 100%;
+}
+
+.el-input,
+.el-input-number {
+  width: 100%;
+}
+
+// 全局css 加上以下代码，可以隐藏上下箭头
+
+// 取消input的上下箭头
+input::-webkit-inner-spin-button {
+  appearance: none !important;
+}
+
+input::-webkit-outer-spin-button {
+  appearance: none !important;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+  -webkit-appearance: textfield;
+  appearance: textfield;
+}
+
+.big-loading {
+  .el-loading-spinner .circular {
+    width: 66px;
+    height: 66px;
+  }
+
+  .el-loading-spinner .path {
+    stroke-width: 2;
+  }
+}
+
+.lf-menu {
+  padding: 0 !important;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3) !important;
+  border-radius: 8px !important;
+  overflow: hidden !important;
+  border: none !important;
+  user-select: none;
+
+  .lf-menu-item {
+    padding: 12px 24px !important;
+    font-size: 14px !important;
+    color: #666 !important;
+
+    &:hover {
+      background: var(--el-color-primary) !important;
+      color: white !important;
+    }
+  }
+}

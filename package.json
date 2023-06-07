@@ -1,0 +1,65 @@
+{
+  "name": "vite-vue-ts-seed",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "test": "vite --mode test",
+    "build": "vue-tsc && vite build",
+    "preview": "vite preview",
+    "ts": "vue-tsc --noEmit",
+    "lint": "eslint src --fix --ext .ts,.tsx,.vue,.js,.jsx --max-warnings 0"
+  },
+  "lint-staged": {
+    "src/**/*.{vue,js,jsx,ts,tsx,json}": [
+      "yarn run lint",
+      "prettier --write"
+    ]
+  },
+  "dependencies": {
+    "@element-plus/icons-vue": "^2.1.0",
+    "@logicflow/core": "^1.2.7",
+    "@logicflow/extension": "^1.2.7",
+    "@types/crypto-js": "^4.1.1",
+    "@types/js-base64": "^3.3.1",
+    "ace-builds": "^1.21.1",
+    "axios": "^1.4.0",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.0",
+    "core-js": "^3.30.2",
+    "crypto-js": "^4.1.1",
+    "element-plus": "^2.3.4",
+    "es6-shim": "^0.35.8",
+    "pinia": "^2.0.36",
+    "pinia-plugin-persistedstate": "^3.1.0",
+    "reflect-metadata": "^0.1.13",
+    "register-service-worker": "^1.7.2",
+    "vue": "^3.2.47",
+    "vue-clipboard3": "^2.0.0",
+    "vue-router": "^4.2.0",
+    "vuedraggable": "^2.24.3"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^17.6.3",
+    "@commitlint/config-conventional": "^17.6.3",
+    "@rollup/plugin-dynamic-import-vars": "^2.0.3",
+    "@types/node": "^20.1.7",
+    "@typescript-eslint/eslint-plugin": "^5.59.6",
+    "@typescript-eslint/parser": "^5.59.6",
+    "@vitejs/plugin-vue": "^4.1.0",
+    "eslint": "^8.40.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-vue": "^9.13.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.2.2",
+    "prettier": "^2.8.8",
+    "sass": "^1.62.1",
+    "typescript": "^5.0.2",
+    "unplugin-auto-import": "^0.16.0",
+    "unplugin-vue-components": "^0.24.1",
+    "vite": "^4.3.2",
+    "vue-tsc": "^1.4.2"
+  }
+}

@@ -1,0 +1,108 @@
+.dialog .el-select .el-input__inner {
+  min-height: 32px !important;
+}
+
+.el-select {
+  width: 100%;
+}
+
+textarea {
+  resize: none !important;
+}
+
+.el-popper.is-customized {
+  padding: 6px 12px;
+  background: #666;
+  color: #fff;
+  box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.3);
+}
+
+.el-popper.is-customized .el-popper__arrow::before {
+  background: #666;
+  right: 0;
+}
+
+.el-popper.is-customized,
+.el-popper.is-customized * {
+  pointer-events: none;
+}
+
+.rich-text > .el-message-box__content {
+  padding: 20px !important;
+}
+
+.el-button.el-loading-parent--relative {
+  pointer-events: none;
+}
+
+.el-button.el-loading-parent--relative .el-loading-mask {
+  background: transparent;
+}
+
+.el-button.el-loading-parent--relative .el-loading-mask .el-loading-spinner .path {
+  stroke: white;
+  stroke-width: 5px;
+}
+
+.el-button.el-loading-parent--relative .el-loading-mask .circular {
+  width: 20px;
+}
+
+.el-button span {
+  transition: all 0.3s;
+}
+
+.el-button.el-loading-parent--relative span {
+  opacity: 0;
+}
+
+.air-dialog .el-date-editor,
+.air-dialog .el-input-number {
+  width: 100% !important;
+}
+
+.air-dialog .el-input-number .el-input__inner {
+  text-align: left !important;
+}
+
+.el-cascader-menu__list {
+  margin-block: 0px;
+  padding-inline-start: 0;
+  width: 100%;
+}
+
+.el-scrollbar__wrap {
+  justify-content: center !important;
+}
+
+.el-scrollbar__view {
+  height: 100%;
+}
+
+.el-tree-node__content {
+  padding: 3px;
+}
+
+.el-tree--highlight-current .el-tree-node.is-current > .el-tree-node__content {
+  background-color: var(--primary-color);
+  color: white;
+  border-radius: 3px;
+}
+
+.el-tree--highlight-current .el-tree-node.is-current > .el-tree-node__content > .el-icon.el-tree-node__expand-icon {
+  color: white;
+}
+
+.el-tree--highlight-current
+  .el-tree-node.is-current
+  > .el-tree-node__content
+  > .el-icon.el-tree-node__expand-icon.is-leaf {
+  color: transparent;
+}
+
+.el-input__inner[readonly] {
+  cursor: pointer;
+}
+.el-pagination {
+  font-size: 14px;
+}
