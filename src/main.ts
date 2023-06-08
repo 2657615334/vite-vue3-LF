@@ -1,5 +1,5 @@
-// import './style.css'
 import app from '@/airpower/app'
+import './style.css'
 import router from '@/config/router'
 import { AppConfig } from '@/airpower/AppConfig'
 

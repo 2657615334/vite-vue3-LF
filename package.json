@@ -18,6 +18,8 @@
     ]
   },
   "dependencies": {
+    "@amap/amap-jsapi-loader": "^1.0.1",
+    "@amap/amap-jsapi-types": "^0.0.13",
     "@element-plus/icons-vue": "^2.1.0",
     "@logicflow/core": "^1.2.7",
     "@logicflow/extension": "^1.2.7",
@@ -31,6 +33,7 @@
     "crypto-js": "^4.1.1",
     "element-plus": "^2.3.4",
     "es6-shim": "^0.35.8",
+    "nprogress": "^0.2.0",
     "pinia": "^2.0.36",
     "pinia-plugin-persistedstate": "^3.1.0",
     "reflect-metadata": "^0.1.13",

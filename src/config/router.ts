@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
-
+import NProgress from '@/config/nprogress'
 /**
  * # 路由配置
  */
@@ -33,6 +33,7 @@ const router = createRouter({
   routes,
 })
 router.beforeEach((to, _, next) => {
+  NProgress.start()
   if (to.meta.name) {
     const product = '东东平台'
     window.document.title = `${to.meta.name} - ${product}` || product
@@ -40,6 +41,15 @@ router.beforeEach((to, _, next) => {
   next()
 })
 router.afterEach(() => {
+  NProgress.done()
   window.scrollTo(0, 0)
+})
+
+/**
+ * @description 路由跳转错误
+ * */
+router.onError((error) => {
+  NProgress.done()
+  console.warn('路由错误', error.message)
 })
 export default router

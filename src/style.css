@@ -3,7 +3,11 @@ body,html {
   padding: 0;
 }
 
+#nprogress .bar {
+  background: var(--el-color-primary) !important;
+}
 
-
-
+#nprogress .peg {
+  box-shadow: 0 0 10px var(--el-color-primary), 0 0 5px var(--el-color-primary) !important;
+}
 

@@ -1,7 +1,10 @@
 // 声明window上的自定义属性
 declare interface Window {
-  eventBus: any
+  eventBus: any,
+  _AMapSecurityConfig:any
 }
+
+declare module 'nprogress'
 
 // 声明 .vue 文件
 declare module '*.vue' {
