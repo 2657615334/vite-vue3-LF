@@ -54,92 +54,91 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
-import { APanel, APage, ATable, ATableToolBar, AToolBar } from '@/airpower/component'
-import { AirDateTimeHelper, AirDialogHelper, AirRandHelper } from '@/airpower/helper'
-import { AirPage } from '@/airpower/dto/AirPage'
-import { AirSort } from '@/airpower/dto/AirSort'
-import { UserEntity, UserSexRecord, UserType } from '@/entity/UserEntity'
-import { UserRequestPage } from '@/model/request/UserRequestPage'
-import { UserResponsePage } from '@/model/response/UserResponsePage'
-import DialogUserEdit from './edit.vue'
-import DialogUserAdd from './add.vue'
+import { ref } from "vue";
+import { APanel, APage, ATable, ATableToolBar, AToolBar } from "@/airpower/component";
+import { AirDateTimeHelper, AirDialogHelper, AirRandHelper } from "@/airpower/helper";
+import { AirPage } from "@/airpower/dto/AirPage";
+import { AirSort } from "@/airpower/dto/AirSort";
+import { UserEntity, UserSexRecord, UserType } from "@/entity/UserEntity";
+import { UserRequestPage } from "@/model/request/UserRequestPage";
+import { UserResponsePage } from "@/model/response/UserResponsePage";
+import DialogUserEdit from "./edit.vue";
+import DialogUserAdd from "./add.vue";
 
-import showDetail from './detail'
-import { UserService } from '@/service/UserService'
+import showDetail from "./detail";
+import { UserService } from "@/service/UserService";
 
-const responsePageRef = ref(new UserResponsePage())
-const requestPageRef = ref(new UserRequestPage())
-const loadingRef = ref(false)
+const responsePageRef = ref(new UserResponsePage());
+const requestPageRef = ref(new UserRequestPage());
+const loadingRef = ref(false);
 
 async function getUserList() {
-  loadingRef.value = true
-  const total = 50
-  responsePageRef.value.currentPage = 1
-  responsePageRef.value.currentPageSize = 20
-  responsePageRef.value.total = total
-  responsePageRef.value.items = []
+  loadingRef.value = true;
+  const total = 50;
+  responsePageRef.value.currentPage = 1;
+  responsePageRef.value.currentPageSize = 20;
+  responsePageRef.value.total = total;
+  responsePageRef.value.items = [];
   for (let i = 1; i < total; i++) {
-    const user = new UserEntity()
-    user.id = i
-    user.name = `张${i}`
-    user.userRemark = `签名${i}`
-    user.userHead = `头像${i}`
-    user.createdBy = `刘德${i}`
-    user.userSex = i % 2
-    user.createdTime = AirDateTimeHelper.getMilliTimeStamps()
+    const user = new UserEntity();
+    user.id = i;
+    user.name = `张${i}`;
+    user.userRemark = `签名${i}`;
+    user.userHead = `头像${i}`;
+    user.createdBy = `刘德${i}`;
+    user.userSex = i % 2;
+    user.createdTime = AirDateTimeHelper.getMilliTimeStamps();
     if (AirRandHelper.getRandNumber(1000, 9999) % 3 === 0) {
-      user.userType = UserType.ROOT_USER
+      user.userType = UserType.ROOT_USER;
     } else {
-      user.userType = UserType.IMPLEMENTER_USER
+      user.userType = UserType.IMPLEMENTER_USER;
     }
     if (AirRandHelper.getRandNumber(1000, 9999) % 3 === 0) {
-      user.isVip = true
+      user.isVip = true;
     } else {
-      user.isVip = false
+      user.isVip = false;
     }
-    responsePageRef.value.items.push(user)
+    responsePageRef.value.items.push(user);
   }
-  console.log(responsePageRef.value)
-  loadingRef.value = false
-  console.log(requestPageRef.value.toSourceString())
+  console.log(responsePageRef.value);
+  loadingRef.value = false;
+  console.log(requestPageRef.value.toSourceString());
 }
 
 function onSearch(search: UserRequestPage): void {
-  requestPageRef.value = search
-  console.log('On Search: ', search.toSourceObject())
+  requestPageRef.value = search;
+  console.log("On Search: ", search.toSourceObject());
 }
 function onPageChanged(page: AirPage) {
-  console.log('page changed', page)
-  requestPageRef.value.page = page
-  console.log(requestPageRef.value.toSourceString())
+  console.log("page changed", page);
+  requestPageRef.value.page = page;
+  console.log(requestPageRef.value.toSourceString());
 }
 function onRowAdd(row: UserEntity) {
-  console.log('Row add event', row)
+  console.log("Row add event", row);
 }
 function onSort(sort?: AirSort) {
-  console.log('sort changed', sort)
-  requestPageRef.value.sort = sort
-  console.log(requestPageRef.value.toSourceString())
+  console.log("sort changed", sort);
+  requestPageRef.value.sort = sort;
+  console.log(requestPageRef.value.toSourceString());
 }
 async function onEdit(row: UserEntity) {
-  console.log('Edit event', row)
-  const result = await AirDialogHelper.show(DialogUserEdit, row)
-  console.log('Edit callback', result)
+  console.log("Edit event", row);
+  const result = await AirDialogHelper.show(DialogUserEdit, row);
+  console.log("Edit callback", result);
 }
 function onDeleted(data: UserEntity) {
-  console.log('deleted event', data)
+  console.log("deleted event", data);
 }
 
 async function onAddClicked() {
-  console.log('open add dialog ')
-  await AirDialogHelper.show(DialogUserAdd)
-  console.log('add finished')
+  console.log("open add dialog ");
+  await AirDialogHelper.show(DialogUserAdd);
+  console.log("add finished");
   // 刷新下数据
-  getUserList()
+  getUserList();
 }
 
-getUserList()
+getUserList();
 </script>
-<style scoped lang="scss">
-</style>
+<style scoped lang="scss"></style>

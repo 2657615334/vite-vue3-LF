@@ -9,43 +9,43 @@ import { ITableFieldConfig } from '../interface/ITableFieldConfig'
  * @author Hamm
  */
 export class AirTableFieldConfig extends AirFieldConfig implements ITableFieldConfig {
-@Expose() hide = false
+  @Expose() hide = false
 
-@Expose() removed = false
+  @Expose() removed = false
 
-@Expose() width?: number
+  @Expose() width?: number
 
-@Expose() minWidth?: number
+  @Expose() minWidth?: number
 
-@Expose() isDisabledField = false
+  @Expose() isDisabledField = false
 
-@Expose() fixed?: 'left' | 'right'
+  @Expose() fixed?: 'left' | 'right'
 
-@Expose() orderNumber = 1
+  @Expose() orderNumber = 1
 
-@Expose() enumRecord?: IRecord[]
+  @Expose() enumRecord?: IRecord[]
 
-@Expose() dateTimeFormatter?: AirDateTimeFormatter | string
+  @Expose() dateTimeFormatter?: AirDateTimeFormatter | string
 
-@Expose() showStatus?: boolean = true
+  @Expose() showStatus?: boolean = true
 
-@Expose() sortable?: boolean | 'custom' = false
+  @Expose() sortable?: boolean | 'custom' = false
 
-@Expose() forceShow?: boolean = false
+  @Expose() forceShow?: boolean = false
 
-@Expose() align?: 'right' | 'left' | 'center' = 'left'
+  @Expose() align?: 'right' | 'left' | 'center' = 'left'
 
-@Expose() suffixText?: string
+  @Expose() suffixText?: string
 
-@Expose() payloadField?: string
+  @Expose() payloadField?: string
 
-@Expose() isFriendlyDateTime?= false
+  @Expose() isFriendlyDateTime? = false
 
-@Expose() isCopyField?= false
+  @Expose() isCopyField? = false
 
-@Expose() isImage?= false
+  @Expose() isImage? = false
 
-@Expose() imageWidth?= 60
+  @Expose() imageWidth? = 60
 
-@Expose() imageHeight?= 60
+  @Expose() imageHeight? = 60
 }

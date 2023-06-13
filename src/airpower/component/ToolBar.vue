@@ -37,7 +37,14 @@
             @keydown.enter="searchKeyword"
           >
             <template #suffix>
-              <el-icon v-if="keyword" style="margin-right:6px;" @click="keyword = ''; searchKeyword()">
+              <el-icon
+                v-if="keyword"
+                style="margin-right: 6px"
+                @click="
+                  keyword = '';
+                  searchKeyword();
+                "
+              >
                 <CircleClose />
               </el-icon>
               <el-icon style="vertical-align: middle" @click="searchKeyword">
@@ -50,7 +57,12 @@
       <slot name="customSearch" />
       <template v-if="isAdvanceSearchEnabled">
         <div class="advance-search">
-          <el-button @click.stop="keyword = ''; showDialog = !showDialog">
+          <el-button
+            @click.stop="
+              keyword = '';
+              showDialog = !showDialog;
+            "
+          >
             <i class="airpower icon-commonicon_gengduoshaixuan" />更多筛选
           </el-button>
           <div
@@ -184,24 +196,24 @@
 </template>
 
 <script lang="ts" setup>
-import { PropType, ref, computed, defineExpose } from 'vue'
-import { ClassConstructor } from 'class-transformer'
-import { AButton } from '../component'
-import { AirAbstractRequest } from '../dto/AirAbstractRequest'
-import { AirAbstractEntity } from '../dto/AirAbstractEntity'
-import { AirEntityConfig } from '../config/AirEntityConfig'
-import { AirDialogHelper } from '../helper/AirDialogHelper'
-import { getClassName } from '../decorator/CustomName'
-import { getEntityConfig } from '../decorator/EntityConfig'
-import { AppConfig } from '../AppConfig'
-import { AirSearchDataType } from '../enum/AirSearchDataType'
-import { AirNotification } from '../feedback/AirNotification'
-import { AirClassTransformerHelper } from '../helper/AirClassTransformerHelper'
-import { AirAbstractRequestPage } from '../dto/AirAbstractRequestPage'
-import { AirSearchFieldConfig } from '../config/AirSearchFieldConfig'
-import { AirFormInstance } from '../type/AirType'
-import { AirAbstractService } from '../service/AirAbstractService'
-import { AirBetweenType } from '../enum/AirBetweenType'
+import { PropType, ref, computed } from "vue";
+import { ClassConstructor } from "class-transformer";
+import { AButton } from "../component";
+import { AirAbstractRequest } from "../dto/AirAbstractRequest";
+import { AirAbstractEntity } from "../dto/AirAbstractEntity";
+import { AirEntityConfig } from "../config/AirEntityConfig";
+import { AirDialogHelper } from "../helper/AirDialogHelper";
+import { getClassName } from "../decorator/CustomName";
+import { getEntityConfig } from "../decorator/EntityConfig";
+import { AppConfig } from "../AppConfig";
+import { AirSearchDataType } from "../enum/AirSearchDataType";
+import { AirNotification } from "../feedback/AirNotification";
+import { AirClassTransformerHelper } from "../helper/AirClassTransformerHelper";
+import { AirAbstractRequestPage } from "../dto/AirAbstractRequestPage";
+import { AirSearchFieldConfig } from "../config/AirSearchFieldConfig";
+import { AirFormInstance } from "../type/AirType";
+import { AirAbstractService } from "../service/AirAbstractService";
+import { AirBetweenType } from "../enum/AirBetweenType";
 
 const props = defineProps({
   /**
@@ -231,16 +243,16 @@ const props = defineProps({
     default: undefined,
   },
 
-  /** 
+  /**
    * # 搜索的对象
    * 如传入 则覆盖 search-entity 自动生成的条件
    */
   searchParams: {
-    type: Array as unknown as PropType<AirSearchFieldConfig[]>,
+    type: (Array as unknown) as PropType<AirSearchFieldConfig[]>,
     default: () => [],
   },
 
-  /** 
+  /**
    * # 加载的状态
    */
   loading: {
@@ -248,43 +260,43 @@ const props = defineProps({
     default: false,
   },
 
-  /** 
+  /**
    * # 选择框宽度
    */
   labelWidth: {
     type: String,
-    default: '150px',
+    default: "150px",
   },
 
-  /** 
+  /**
    * # 😡已弃用 请直接使用```:entity```😡
    */
   searchEntity: {
-    type: Function as unknown as PropType<ClassConstructor<AirAbstractEntity>>,
-    default: undefined,
-  },
-
-  /** 
-   * # 返回的搜索实体类型 
-   * 如不传入 则原样返回原始JSON
-   */
-  entity: {
-    type: Function as unknown as PropType<ClassConstructor<AirAbstractEntity>>,
+    type: (Function as unknown) as PropType<ClassConstructor<AirAbstractEntity>>,
     default: undefined,
   },
 
   /**
-   * # 搜索返回的实体类型 
-   * 请使用 @on-search 回调
-   * 
-   * 如不传入 请使用 @search @search-keyword回调
+   * # 返回的搜索实体类型
+   * 如不传入 则原样返回原始JSON
    */
-  searchRequest: {
-    type: Function as unknown as PropType<ClassConstructor<AirAbstractRequest>>,
+  entity: {
+    type: (Function as unknown) as PropType<ClassConstructor<AirAbstractEntity>>,
     default: undefined,
   },
 
-  /** 
+  /**
+   * # 搜索返回的实体类型
+   * 请使用 @on-search 回调
+   *
+   * 如不传入 请使用 @search @search-keyword回调
+   */
+  searchRequest: {
+    type: (Function as unknown) as PropType<ClassConstructor<AirAbstractRequest>>,
+    default: undefined,
+  },
+
+  /**
    * # 隐藏关键词搜索
    * 如 ```EntityConfig``` 中 ```hideKeywordSearch``` 设置为 ```true``` , 则此项无效
    */
@@ -293,7 +305,7 @@ const props = defineProps({
     default: false,
   },
 
-  /** 
+  /**
    * # 隐藏高级搜索功能
    * 如 ```EntityConfig``` 中 ```hideAdvanceSearch``` 设置为 ```true``` , 则此项无效
    */
@@ -302,7 +314,7 @@ const props = defineProps({
     default: AppConfig.defaultHideAdvanceSearch,
   },
 
-  /** 
+  /**
    * # 隐藏新增按钮
    */
   hideAdd: {
@@ -312,7 +324,7 @@ const props = defineProps({
 
   /**
    * # 导出接口地址 如传入则优先使用
-   * 默认按传入的service自动生成 
+   * 默认按传入的service自动生成
    */
   exportUrl: {
     type: String,
@@ -339,9 +351,9 @@ const props = defineProps({
   /**
    * # 🎉🎉🎉异步下载
    * 后期可能会默认此项为 ```true```
-   * 
+   *
    * 🎉 使用异步弹窗下载 如不配置或者 ```false``` 则传统直接下载
-   * 
+   *
    * 建议数据量大的导出功能都使用这个方法
    */
   exportAsync: {
@@ -351,7 +363,7 @@ const props = defineProps({
 
   /**
    * # 导入接口地址 如传入则优先使用
-   * 默认按传入的service自动生成 
+   * 默认按传入的service自动生成
    */
   importUrl: {
     type: String,
@@ -360,7 +372,7 @@ const props = defineProps({
 
   /**
    * # 导入模板下载地址 如传入则优先使用
-   * 默认按传入的service自动生成 
+   * 默认按传入的service自动生成
    */
   importTemplateUrl: {
     type: String,
@@ -369,7 +381,7 @@ const props = defineProps({
 
   /**
    * # 导入上传的标题 如传入则优先使用
-   * 默认按传入的service自动生成 
+   * 默认按传入的service自动生成
    */
   importTitle: {
     type: String,
@@ -379,7 +391,7 @@ const props = defineProps({
   /**
    * # 是否显示导入按钮
    * 如传入 则需要再传入 :service 或 :import-url
-   * 
+   *
    * :import-title 可指定上传框的标题
    */
   showImport: {
@@ -388,13 +400,13 @@ const props = defineProps({
   },
 
   /**
-   * # 接口服务类 
+   * # 接口服务类
    * ```
    * 如 :service="UserService"
    * ```
    */
   service: {
-    type: Function as unknown as PropType<ClassConstructor<AirAbstractService>>,
+    type: (Function as unknown) as PropType<ClassConstructor<AirAbstractService>>,
     default: undefined,
   },
 
@@ -404,65 +416,69 @@ const props = defineProps({
    */
   searchPlaceholder: {
     type: String,
-    default: '',
+    default: "",
   },
-})
+});
 
 /**
  * 表单
  */
-const formRef = ref<AirFormInstance>()
+const formRef = ref<AirFormInstance>();
 
 /**
  * 关键词搜索内容
  */
-const keyword = ref('')
+const keyword = ref("");
 
 /**
  * 是否显示高级搜索表单
  */
-const showDialog = ref(false)
+const showDialog = ref(false);
 
 /**
  * 内部使用的entity
  */
-let toolbarEntity: ClassConstructor<AirAbstractEntity> | null = null
+let toolbarEntity: ClassConstructor<AirAbstractEntity> | null = null;
 
 /**
  * 内部使用的配置
  */
-let entityConfig: AirEntityConfig = new AirEntityConfig()
+let entityConfig: AirEntityConfig = new AirEntityConfig();
 
 function init() {
-  toolbarEntity = props.entity || props.searchEntity || null
+  toolbarEntity = props.entity || props.searchEntity || null;
   if (toolbarEntity) {
-    entityConfig = getEntityConfig(toolbarEntity)
+    entityConfig = getEntityConfig(toolbarEntity);
   }
 }
-init()
+init();
 
 /**
  * 新增按钮的标题
  */
 const addTitle = computed(() => {
   if (toolbarEntity) {
-    return entityConfig.addTitle || (`新增${getClassName(toolbarEntity)}`)
+    return entityConfig.addTitle || `新增${getClassName(toolbarEntity)}`;
   }
-  return ''
-})
+  return "";
+});
 
 /**
  * 关键词搜索提示文字
  */
 const keywordSearchPlaceholder = computed(() => {
   if (props.searchPlaceholder) {
-    return props.searchPlaceholder
+    return props.searchPlaceholder;
   }
   if (toolbarEntity) {
-    return entityConfig.keywordSearchPlaceholder || props.searchPlaceholder || AppConfig.defaultKeywordSearchPlaceholder
+    return (
+      entityConfig.keywordSearchPlaceholder ||
+      props.searchPlaceholder ||
+      AppConfig.defaultKeywordSearchPlaceholder
+    );
   }
-  return AppConfig.defaultKeywordSearchPlaceholder
-})
+  return AppConfig.defaultKeywordSearchPlaceholder;
+});
 
 /**
  * 是否显示关键词搜索
@@ -470,11 +486,11 @@ const keywordSearchPlaceholder = computed(() => {
 const isKeywordSearchEnabled = computed(() => {
   if (entityConfig.hideKeywordSearch) {
     // entityConfig设置隐藏 则全局隐藏
-    return false
+    return false;
   }
   // 兜底使用传入的配置
-  return !props.hideSearch
-})
+  return !props.hideSearch;
+});
 
 /**
  * 是否显示高级搜索
@@ -482,74 +498,76 @@ const isKeywordSearchEnabled = computed(() => {
 const isAdvanceSearchEnabled = computed(() => {
   if (entityConfig.hideAdvanceSearch) {
     // entityConfig设置隐藏 则全局隐藏
-    return false
+    return false;
   }
   // 兜底使用传入的配置
-  return !props.hideAdvanceSearch
-})
+  return !props.hideAdvanceSearch;
+});
 
 /**
  * 为URL拼接AccessToken
- * @param url 
+ * @param url
  */
 function getUrlWithAccessToken(url: string) {
-  const accessToken = AppConfig.getAccessToken()
-  url = url.replace('authorization', 'Authorization')
-  if (url.indexOf('?Authorization=') < 0 && url.indexOf('&Authorization=') < 0) {
-    if (url.indexOf('?') < 0) {
-      url += `?Authorization=${accessToken}`
+  const accessToken = AppConfig.getAccessToken();
+  url = url.replace("authorization", "Authorization");
+  if (url.indexOf("?Authorization=") < 0 && url.indexOf("&Authorization=") < 0) {
+    if (url.indexOf("?") < 0) {
+      url += `?Authorization=${accessToken}`;
     } else {
-      url += `&Authorization=${accessToken}`
+      url += `&Authorization=${accessToken}`;
     }
   }
-  return url
+  return url;
 }
 
 /**
  * 导出方法
  */
 function exportIt() {
-  let url = props.exportUrl
+  let url = props.exportUrl;
   if (!url) {
     // 没有自定义传入 则自动生成
     if (!props.service) {
-      new AirNotification().setTitle('导出失败')
-      .setMessage('请为ToolBar传入service或者exportUrl')
-      .error()
-      return
+      new AirNotification()
+        .setTitle("导出失败")
+        .setMessage("请为ToolBar传入service或者exportUrl")
+        .error();
+      return;
     }
-    const service = AirClassTransformerHelper.parse({}, props.service)
+    const service = AirClassTransformerHelper.parse({}, props.service);
     if (props.exportAsync) {
-      url = `${service.baseUrl}/export`
+      url = `${service.baseUrl}/export`;
     } else {
-      url = `${service.baseUrl}/exportData`
+      url = `${service.baseUrl}/exportData`;
     }
   }
   if (props.exportAsync) {
-    AirDialogHelper.createExportTask(url, props.exportParam)
-    return
+    AirDialogHelper.createExportTask(url, props.exportParam);
+    return;
   }
-  window.open(AppConfig.apiRootUrl + getUrlWithAccessToken(url))
+  window.open(AppConfig.apiRootUrl + getUrlWithAccessToken(url));
 }
 
 /**
  * # 下载导入的模板
  */
 function downloadTemplate() {
-  let url = props.importTemplateUrl
+  let url = props.importTemplateUrl;
   if (!url) {
     // 没有自定义传入 则自动生成
     if (!props.service) {
-      new AirNotification().setTitle('下载失败')
-      .setMessage('请为ToolBar传入service或者importTemplateUrl')
-      .error()
-      return false
+      new AirNotification()
+        .setTitle("下载失败")
+        .setMessage("请为ToolBar传入service或者importTemplateUrl")
+        .error();
+      return false;
     }
-    const service = AirClassTransformerHelper.parse({}, props.service)
-    url = `${service.baseUrl}/exportTemplate`
+    const service = AirClassTransformerHelper.parse({}, props.service);
+    url = `${service.baseUrl}/exportTemplate`;
   }
-  window.open(AppConfig.apiRootUrl + getUrlWithAccessToken(url))
-  return true
+  window.open(AppConfig.apiRootUrl + getUrlWithAccessToken(url));
+  return true;
 }
 
 /**
@@ -558,43 +576,44 @@ function downloadTemplate() {
 const searchFieldList = computed(() => {
   // 如果传入searchParams 优先使用searchParams
   if (props.searchParams.length > 0) {
-    return props.searchParams
+    return props.searchParams;
   }
   // 如果传入实体 则尝试自动获取
   if (toolbarEntity) {
-    return (toolbarEntity?.prototype as AirAbstractEntity).getSearchFieldConfigList()
+    return (toolbarEntity?.prototype as AirAbstractEntity).getSearchFieldConfigList();
   }
-  return []
-})
+  return [];
+});
 
 /**
  * 定义事件
  */
 // eslint-disable-next-line no-unused-vars
-const emits = defineEmits<{(event: 'add'): void;
+const emits = defineEmits<{
+  (event: "add"): void;
   // eslint-disable-next-line no-unused-vars
-  (event: 'onAdd'): void;
+  (event: "onAdd"): void;
   // eslint-disable-next-line no-unused-vars
-  (event: 'search', data: any): void;
+  (event: "search", data: any): void;
   // eslint-disable-next-line no-unused-vars
-  (event: 'searchKeyword', data: string): void;
+  (event: "searchKeyword", data: string): void;
   // eslint-disable-next-line no-unused-vars
-  (event: 'onSearch', data: any): void;
-  // 推荐使用onSearch回调 
-}>()
+  (event: "onSearch", data: any): void;
+  // 推荐使用onSearch回调
+}>();
 
-/** 
+/**
  * 点击了新增按钮
  */
 function onAddClicked() {
-  emits('onAdd')
-  emits('add')
+  emits("onAdd");
+  emits("add");
 }
 
 /**
  * 查询数据
  */
-const data = ref({} as Record<string, any>)
+const data = ref({} as Record<string, any>);
 
 /**
  * 查询事件
@@ -602,19 +621,24 @@ const data = ref({} as Record<string, any>)
 function search() {
   if (toolbarEntity) {
     if (props.searchRequest) {
-      const request = AirClassTransformerHelper.parse({}, props.searchRequest)
-      request.queryParams = AirClassTransformerHelper.parse({}, toolbarEntity).copy(data.value)
+      const request = AirClassTransformerHelper.parse({}, props.searchRequest);
+      request.queryParams = AirClassTransformerHelper.parse({}, toolbarEntity).copy(
+        data.value
+      );
       if ((request as AirAbstractRequestPage).page) {
-        (request as AirAbstractRequestPage).page.currentPage = 1
+        (request as AirAbstractRequestPage).page.currentPage = 1;
       }
-      emits('onSearch', request)
+      emits("onSearch", request);
     } else {
-      emits('search', AirClassTransformerHelper.parse({}, toolbarEntity).copy(data.value))
+      emits(
+        "search",
+        AirClassTransformerHelper.parse({}, toolbarEntity).copy(data.value)
+      );
     }
   } else {
-    emits('search', data.value)
+    emits("search", data.value);
   }
-  showDialog.value = false
+  showDialog.value = false;
 }
 
 /**
@@ -622,14 +646,14 @@ function search() {
  */
 function searchKeyword() {
   if (props.searchRequest && toolbarEntity) {
-    const request = AirClassTransformerHelper.parse({}, props.searchRequest)
+    const request = AirClassTransformerHelper.parse({}, props.searchRequest);
     if ((request as AirAbstractRequestPage).page) {
-      (request as AirAbstractRequestPage).page.currentPage = 1
+      (request as AirAbstractRequestPage).page.currentPage = 1;
     }
-    request.keyword = keyword.value
-    emits('onSearch', request)
+    request.keyword = keyword.value;
+    emits("onSearch", request);
   } else {
-    emits('searchKeyword', keyword.value)
+    emits("searchKeyword", keyword.value);
   }
 }
 
@@ -637,39 +661,42 @@ function searchKeyword() {
  * 重置表单
  */
 function resetSearch() {
-  keyword.value = ''
-  data.value = {}
-  search()
-  showDialog.value = false
+  keyword.value = "";
+  data.value = {};
+  search();
+  showDialog.value = false;
 }
 
 /**
  * 导入
  */
 async function importIt() {
-  let url = props.importUrl
+  let url = props.importUrl;
   if (!url) {
     // 没有自定义传入 则自动生成
     if (!props.service) {
-      new AirNotification().setTitle('导入失败')
-      .setMessage('请为ToolBar传入service或者importUrl')
-      .error()
-      return
+      new AirNotification()
+        .setTitle("导入失败")
+        .setMessage("请为ToolBar传入service或者importUrl")
+        .error();
+      return;
     }
-    const service = AirClassTransformerHelper.parse({}, props.service)
-    url = `${service.baseUrl}/importData`
+    const service = AirClassTransformerHelper.parse({}, props.service);
+    url = `${service.baseUrl}/importData`;
   }
-  await AirDialogHelper.showUpload({
-    uploadUrl: AppConfig.apiRootUrl + url,
-    exts: ['xls', 'xlsx'],
-    title: props.importTitle || '导入数据',
-    uploadSuccess: '数据导入成功',
-    confirmText: '下载模板',
-  },
-  () => {
-    downloadTemplate()
-  })
-  resetSearch()
+  await AirDialogHelper.showUpload(
+    {
+      uploadUrl: AppConfig.apiRootUrl + url,
+      exts: ["xls", "xlsx"],
+      title: props.importTitle || "导入数据",
+      uploadSuccess: "数据导入成功",
+      confirmText: "下载模板",
+    },
+    () => {
+      downloadTemplate();
+    }
+  );
+  resetSearch();
 }
 /**
  * 获取输入的类型
@@ -677,18 +704,18 @@ async function importIt() {
 function getInputType(item: AirSearchFieldConfig) {
   switch (item.dataType) {
     case AirSearchDataType.TEXTAREA:
-      return 'textarea'
+      return "textarea";
     case AirSearchDataType.NUMBER:
-      return 'number'
+      return "number";
     default:
-      return 'text'
+      return "text";
   }
 }
 
 /**
  * 暴露一个重置搜索的方法
  */
-defineExpose({ resetSearch })
+defineExpose({ resetSearch });
 </script>
 
 <style lang="scss">
@@ -696,7 +723,7 @@ defineExpose({ resetSearch })
   padding: 0 0 20px 0;
   display: flex;
 
-  .el-button+.el-button {
+  .el-button + .el-button {
     margin-left: 5px;
   }
 
@@ -805,7 +832,6 @@ defineExpose({ resetSearch })
           .el-input-number {
             max-width: 100% !important;
           }
-
         }
 
         .advance-search-footer {
@@ -834,8 +860,10 @@ defineExpose({ resetSearch })
 
       .el-input__inner {
         &:focus {
-          border-color: var(--el-input-hover-border,
-              var(--el-border-color-hover)) !important;
+          border-color: var(
+            --el-input-hover-border,
+            var(--el-border-color-hover)
+          ) !important;
         }
       }
     }

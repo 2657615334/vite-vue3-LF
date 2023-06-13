@@ -1,7 +1,11 @@
 <template>
   <div class="air-body">
     <div class="air-left" :class="collapseRef ? 'left-collapse' : ''">
-      <div class="air-logo" :class="collapseRef ? 'collapse' : ''" @click="returnToHome()">
+      <div
+        class="air-logo"
+        :class="collapseRef ? 'collapse' : ''"
+        @click="returnToHome()"
+      >
         <slot name="logo">
           <el-image :src="AirFileHelper.getStaticFileUrl(config.logoIcon)">
             <template #error>
@@ -22,9 +26,7 @@
       <div v-if="!collapseRef" class="air-copyright">
         <slot name="copyright">
           <el-image :src="AirFileHelper.getStaticFileUrl(config.partnerLogoIcon)">
-            <template #error>
-              Powered by HoldHope Cloud
-            </template>
+            <template #error> Powered by HoldHope Cloud </template>
           </el-image>
         </slot>
       </div>
@@ -32,7 +34,11 @@
     <div class="air-right">
       <div class="air-header">
         <div v-if="!disableCollapse" class="air-expand">
-          <i class="airpower icon-commonicon_shouqi" :class="collapseRef ? 'expand' : ''" @click="collapseChanged" />
+          <i
+            class="airpower icon-commonicon_shouqi"
+            :class="collapseRef ? 'expand' : ''"
+            @click="collapseChanged"
+          />
         </div>
         <div class="air-navigator">
           <slot name="navigator">
@@ -45,7 +51,9 @@
         </div>
         <slot name="menu">
           <div class="air-menu">
-            <span class="item" @click="returnToIndex"><i class="airpower icon-commonicon_yindao" />控制台</span>
+            <span class="item" @click="returnToIndex"
+              ><i class="airpower icon-commonicon_yindao" />控制台</span
+            >
           </div>
         </slot>
         <slot name="user">
@@ -60,17 +68,17 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, PropType, ref } from 'vue'
-import { AMenu, AUser } from '.'
-import { AirMenu } from '../model/AirMenu'
-import { AirUser } from '../model/AirUser'
-import { AppConfig } from '../AppConfig'
-import { AirPlatformConfig } from '../dto/AirPlatformConfig'
-import { AirCommonService } from '../service/AirCommonService'
-import { AirFileHelper } from '../helper/AirFileHelper'
-import { AirStore } from '../store/AirStore'
+import { computed, PropType, ref } from "vue";
+import { AMenu, AUser } from ".";
+import { AirMenu } from "../model/AirMenu";
+import { AirUser } from "../model/AirUser";
+import { AppConfig } from "../AppConfig";
+import { AirPlatformConfig } from "../dto/AirPlatformConfig";
+// import { AirCommonService } from "../service/AirCommonService";
+import { AirFileHelper } from "../helper/AirFileHelper";
+import { AirStore } from "../store/AirStore";
 
-import image from '../assets/img/logo.png'
+import image from "../assets/img/logo.png";
 
 const props = defineProps({
   /**
@@ -102,7 +110,7 @@ const props = defineProps({
    */
   avatar: {
     type: String,
-    default: () => '',
+    default: () => "",
   },
 
   /**
@@ -112,37 +120,37 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-})
+});
 
 /**
  * 是否收起
  */
-const collapseRef = ref(false)
+const collapseRef = ref(false);
 
 function collapseChanged() {
-  collapseRef.value = !collapseRef.value
-  AirStore().menuCollapsed = (collapseRef.value)
+  collapseRef.value = !collapseRef.value;
+  AirStore().menuCollapsed = collapseRef.value;
 }
-const config = ref(new AirPlatformConfig())
+const config = ref(new AirPlatformConfig());
 
 const init = async () => {
-  collapseRef.value = props.collapse
-  config.value = await new AirCommonService().getCurrentTenantLogoConfig()
-}
-init()
+  collapseRef.value = props.collapse;
+  // config.value = await new AirCommonService().getCurrentTenantLogoConfig()
+};
+init();
 
 /**
  * 回调事件
  */
-const emits = defineEmits(['menuClicked', 'userCommand', 'onMenuClick', 'onUserCommand'])
+const emits = defineEmits(["menuClicked", "userCommand", "onMenuClick", "onUserCommand"]);
 
 /**
  * 菜单点击事件
  * @param url URL
  */
 function menuClicked(url: string) {
-  emits('onMenuClick', url)
-  emits('menuClicked', url) // TODO 即将弃用
+  emits("onMenuClick", url);
+  emits("menuClicked", url); // TODO 即将弃用
 }
 
 /**
@@ -150,17 +158,17 @@ function menuClicked(url: string) {
  * @param cmd 指令
  */
 function handleCommand(cmd: string) {
-  emits('onUserCommand', cmd)
-  emits('userCommand', cmd) // TODO 即将弃用
+  emits("onUserCommand", cmd);
+  emits("userCommand", cmd); // TODO 即将弃用
 }
 
 function returnToHome() {
-  AppConfig.router.push('/')
+  AppConfig.router.push("/");
 }
 
 function returnToIndex() {
   // eslint-disable-next-line no-restricted-globals
-  location.href = AppConfig.homeUrl
+  location.href = AppConfig.homeUrl;
 }
 
 /**
@@ -168,41 +176,41 @@ function returnToIndex() {
  * @param menu 菜单
  */
 const isChildMenu = (menu: AirMenu): boolean => {
-  let isContain = false
+  let isContain = false;
   if (menu.children && menu.children.length > 0) {
     for (const sub of menu.children) {
-      isContain = isChildMenu(sub)
+      isContain = isChildMenu(sub);
       if (isContain) {
-        break
+        break;
       }
     }
   } else if (AppConfig.router && menu.path === AppConfig.router.currentRoute.value.path) {
-    isContain = true
+    isContain = true;
   }
-  return isContain
-}
+  return isContain;
+};
 
 /**
  * 获取菜单链
- * @param menuList 
+ * @param menuList
  */
 const getMenuTraceList = (menuList: AirMenu[]) => {
-  let list: AirMenu[] = []
+  let list: AirMenu[] = [];
   for (const menu of menuList) {
     if (isChildMenu(menu)) {
-      list.push(menu)
+      list.push(menu);
     }
     if (menu.children && menu.children.length > 0) {
-      list = list.concat(getMenuTraceList(menu.children))
+      list = list.concat(getMenuTraceList(menu.children));
     }
   }
-  return list
-}
+  return list;
+};
 
 /**
  * 面包屑菜单链
  */
-const breadList = computed(() => getMenuTraceList(props.menuList))
+const breadList = computed(() => getMenuTraceList(props.menuList));
 </script>
 
 <style scoped lang="scss">
@@ -264,7 +272,6 @@ const breadList = computed(() => getMenuTraceList(props.menuList))
       width: 0px;
       height: 0px;
     }
-
   }
 
   .left-collapse {
@@ -280,7 +287,7 @@ const breadList = computed(() => getMenuTraceList(props.menuList))
     width: 0;
     display: flex;
     flex-direction: column;
-    background: #EAF1F5;
+    background: #eaf1f5;
 
     .air-header {
       padding: 10px 20px 10px 15px;
@@ -346,7 +353,7 @@ const breadList = computed(() => getMenuTraceList(props.menuList))
         }
 
         .is-active::after {
-          content: ' ';
+          content: " ";
           background-color: var(--el-color-primary);
           height: 2px;
           position: absolute;
@@ -366,7 +373,7 @@ const breadList = computed(() => getMenuTraceList(props.menuList))
         .item {
           padding: 5px 15px;
           cursor: pointer;
-          transition: all .3s;
+          transition: all 0.3s;
           font-size: 14px;
           border-radius: 5px;
           color: var(--el-color-primary);
@@ -409,7 +416,7 @@ const breadList = computed(() => getMenuTraceList(props.menuList))
   }
 
   .collapse {
-    >* {
+    > * {
       display: none;
     }
 
@@ -447,7 +454,7 @@ const breadList = computed(() => getMenuTraceList(props.menuList))
       img {
         height: 100%;
       }
-      .el-image__wrapper{
+      .el-image__wrapper {
         position: relative;
         left: auto;
         right: auto;

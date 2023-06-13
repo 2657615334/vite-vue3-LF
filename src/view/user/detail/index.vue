@@ -9,13 +9,13 @@
   >
     <template #body>
       <div>
-        标准对象数据：<br>
+        标准对象数据：<br />
 
         {{ param }}
       </div>
-      <hr>
+      <hr />
       <div>
-        原始接口数据:<br>
+        原始接口数据:<br />
 
         {{ param.toSourceString() }}
       </div>
@@ -25,10 +25,9 @@
 </template>
 
 <script lang="ts" setup>
-import { defineProps } from 'vue'
-import { ADialog } from '@/airpower/component'
-import { UserEntity } from '@/entity/UserEntity'
-import showDetail from './index'
+import { ADialog } from "@/airpower/component";
+import { UserEntity } from "@/entity/UserEntity";
+import showDetail from "./index";
 
 defineProps({
   onConfirm: {
@@ -43,12 +42,11 @@ defineProps({
     type: UserEntity,
     default: () => null,
   },
-})
+});
 
 function newDialog() {
-  showDetail(new UserEntity().setId(123))
+  showDetail(new UserEntity().setId(123));
 }
 </script>
 
-<style scoped lang="scss">
-</style>
+<style scoped lang="scss"></style>

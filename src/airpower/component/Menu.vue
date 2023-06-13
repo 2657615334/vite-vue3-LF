@@ -10,13 +10,13 @@
 </template>
 
 <script lang="ts" setup>
-import { PropType, watch, ref } from 'vue'
-import { useRoute } from 'vue-router'
-import { AirMenu } from '../model/AirMenu'
-import ChildMenu from './menu/ChildMenu.vue'
+import { PropType, watch, ref } from "vue";
+import { useRoute } from "vue-router";
+import { AirMenu } from "../model/AirMenu";
+import ChildMenu from "./menu/ChildMenu.vue";
 
 defineProps({
-  /** 
+  /**
    * # 是否收起
    */
   collapse: {
@@ -24,25 +24,25 @@ defineProps({
     default: false,
   },
 
-  /** 
+  /**
    * # 菜单列表
    */
   menuList: {
     type: Array as PropType<AirMenu[]>,
     default: () => [],
   },
-})
+});
 
 /**
  * 菜单状态激活
  */
 // eslint-disable-next-line no-restricted-globals
-const defaultMenu = ref(location.pathname)
+const defaultMenu = ref(location.pathname);
 
 /**
  * 路由
  */
-const route = useRoute()
+const route = useRoute();
 
 /**
  * 监听路由
@@ -50,15 +50,15 @@ const route = useRoute()
 watch(
   () => route,
   // eslint-disable-next-line
-  (newVal, oldVal) => {
+  (newVal) => {
     // eslint-disable-next-line no-restricted-globals
-    defaultMenu.value = newVal.path || location.pathname
+    defaultMenu.value = newVal.path || location.pathname;
   },
   {
     deep: true,
     immediate: true,
-  },
-)
+  }
+);
 </script>
 
 <style lang="scss">

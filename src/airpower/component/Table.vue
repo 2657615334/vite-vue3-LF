@@ -1,5 +1,5 @@
 <template>
-  <div class="air-table-container" :style="{ height: (autoHeight ? 'auto' : '0px') }">
+  <div class="air-table-container" :style="{ height: autoHeight ? 'auto' : '0px' }">
     <div class="air-table-tool-bar">
       <slot name="addButton" />
     </div>
@@ -70,7 +70,6 @@
                         )?.color || AirColor.NORMAL
                     }"
                   >
-
                     {{ item.enumRecord.find((_: any) => item.key && _.key === scope.row[item.key])?.label || "-" }}
                   </span>
                 </div>
@@ -85,45 +84,54 @@
                 <!-- 图片字段 -->
                 <template v-else-if="item.isImage">
                   <el-image
-                    style="background-color:#f3f6f9"
-                    :style="{ width: item.imageWidth + 'px', height: item.imageHeight + 'px' }"
+                    style="background-color: #f3f6f9"
+                    :style="{
+                      width: item.imageWidth + 'px',
+                      height: item.imageHeight + 'px',
+                    }"
                     lazy
                     :src="AirFileHelper.getStaticFileUrl(scope.row[item.key])"
-                    :preview-src-list="[AirFileHelper.getStaticFileUrl(scope.row[item.key])]"
+                    :preview-src-list="[
+                      AirFileHelper.getStaticFileUrl(scope.row[item.key]),
+                    ]"
                     :z-index="999999"
                     preview-teleported
                     fit="contain"
                   >
                     <template #error>
-                      <div class="image-error">
-                        暂无
-                      </div>
+                      <div class="image-error">暂无</div>
                     </template>
                   </el-image>
                 </template>
                 <!-- 读取挂载数据 -->
                 <template v-else-if="item.payloadField">
                   <template v-if="item.isCopyField">
-                    <ACopy :content="scope.row[item.key] ? scope.row[item.key][item.payloadField] : '-'">
+                    <ACopy
+                      :content="
+                        scope.row[item.key] ? scope.row[item.key][item.payloadField] : '-'
+                      "
+                    >
                       {{
                         scope.row[item.key] ? scope.row[item.key][item.payloadField] : "-"
                       }}
                     </ACopy>
                   </template>
-                  <template v-else>{{ scope.row[item.key] ? scope.row[item.key][item.payloadField] : "-" }}</template>
+                  <template v-else>{{
+                    scope.row[item.key] ? scope.row[item.key][item.payloadField] : "-"
+                  }}</template>
                 </template>
                 <!-- 通用字段 -->
                 <template v-else>
                   <template v-if="item.isCopyField">
                     <ACopy :content="scope.row[item.key]">
-                      {{
-                        scope.row[item.key]
-                      }}
+                      {{ scope.row[item.key] }}
                     </ACopy>
                   </template>
                   <template v-else>{{ scope.row[item.key] }}</template>
                 </template>
-                <span v-if="item.suffixText" style="color:#aaa">{{ item.suffixText }}</span>
+                <span v-if="item.suffixText" style="color: #aaa">{{
+                  item.suffixText
+                }}</span>
               </template>
             </slot>
           </template>
@@ -134,9 +142,7 @@
         v-if="!hideCtrl || isFieldSelectorEnabled"
         fixed="right"
         align="right"
-        :width="
-          ctrlWidth || 'auto'
-        "
+        :width="ctrlWidth || 'auto'"
       >
         <template #header>
           <div class="custom-header">
@@ -209,29 +215,29 @@
         </template>
       </el-table-column>
       <template #empty>
-        <img src="../assets/img/empty.svg">
-        <div>{{ emptyText || entityConfig.tableEmptyText || '暂无数据' }}</div>
+        <img src="../assets/img/empty.svg" />
+        <div>{{ emptyText || entityConfig.tableEmptyText || "暂无数据" }}</div>
       </template>
     </el-table>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { ref, PropType, watch, nextTick, computed } from 'vue'
-import { ClassConstructor } from 'class-transformer'
-import { getClassName } from '../decorator/CustomName'
-import { getEntityConfig } from '../decorator/EntityConfig'
-import { AirSortType } from '../enum/AirSortType'
-import { AirConfirm } from '../feedback/AirConfirm'
-import { ITreeProps } from '../interface/ITreeProps'
-import { AirAbstractEntity } from '../dto/AirAbstractEntity'
-import { AirEntityConfig } from '../config/AirEntityConfig'
-import { AirTableFieldConfig } from '../config/AirTableFieldConfig'
-import { AirTableInstance } from '../type/AirType'
-import { AirColor } from '../enum/AirColor'
-import { AirFileHelper } from '../helper/AirFileHelper'
-import { AirSort } from '../dto/AirSort'
-import { ADateTime, ACopy, AButton } from '.'
+import { ref, PropType, watch, nextTick, computed } from "vue";
+import { ClassConstructor } from "class-transformer";
+import { getClassName } from "../decorator/CustomName";
+import { getEntityConfig } from "../decorator/EntityConfig";
+import { AirSortType } from "../enum/AirSortType";
+import { AirConfirm } from "../feedback/AirConfirm";
+import { ITreeProps } from "../interface/ITreeProps";
+import { AirAbstractEntity } from "../dto/AirAbstractEntity";
+import { AirEntityConfig } from "../config/AirEntityConfig";
+import { AirTableFieldConfig } from "../config/AirTableFieldConfig";
+import { AirTableInstance } from "../type/AirType";
+import { AirColor } from "../enum/AirColor";
+import { AirFileHelper } from "../helper/AirFileHelper";
+import { AirSort } from "../dto/AirSort";
+import { ADateTime, ACopy, AButton } from ".";
 
 const props = defineProps({
   /**
@@ -270,7 +276,7 @@ const props = defineProps({
     default: undefined,
   },
 
-  /** 
+  /**
    * # 😄表格显示的数据数组
    */
   dataList: {
@@ -278,7 +284,7 @@ const props = defineProps({
     default: () => [] as PropType<AirAbstractEntity[]>,
   },
 
-  /** 
+  /**
    * # 😡已弃用 请直接使用```:dataList```😡
    * @deprecated
    */
@@ -287,7 +293,7 @@ const props = defineProps({
     default: () => [] as PropType<AirAbstractEntity[]>,
   },
 
-  /** 
+  /**
    * # 😄默认选中的数据数组
    */
   selectList: {
@@ -295,8 +301,8 @@ const props = defineProps({
     default: () => [] as PropType<AirAbstractEntity[]>,
   },
 
-  /** 
-   * # 😄显示字段列表 
+  /**
+   * # 😄显示字段列表
    * 如传入 则优先使用
    */
   fieldList: {
@@ -304,7 +310,7 @@ const props = defineProps({
     default: () => [],
   },
 
-  /** 
+  /**
    * # 😄默认表格空文案
    * 如不传入 则默认使用 ```EntityConfig``` 的 ```tableEmptyText``` 配置
    */
@@ -313,7 +319,7 @@ const props = defineProps({
     default: undefined,
   },
 
-  /** 
+  /**
    * # 😄是否隐藏编辑按钮
    */
   hideEdit: {
@@ -321,7 +327,7 @@ const props = defineProps({
     default: false,
   },
 
-  /** 
+  /**
    * # 😄是否隐藏删除按钮
    */
   hideDelete: {
@@ -329,7 +335,7 @@ const props = defineProps({
     default: false,
   },
 
-  /** 
+  /**
    * # 😄是否隐藏多选框
    */
   hideSelect: {
@@ -337,7 +343,7 @@ const props = defineProps({
     default: false,
   },
 
-  /** 
+  /**
    * # 😄是否隐藏序号
    */
   hideIndex: {
@@ -345,7 +351,7 @@ const props = defineProps({
     default: false,
   },
 
-  /** 
+  /**
    * # 😄是否隐藏字段选择
    * 如 ```EntityConfig``` 的 ```hideFieldSelector``` 设置为 ```true```, 则此项失效
    */
@@ -354,7 +360,7 @@ const props = defineProps({
     default: false,
   },
 
-  /** 
+  /**
    * # 😄操作区宽度
    */
   ctrlWidth: {
@@ -371,71 +377,70 @@ const props = defineProps({
     default: false,
   },
 
-  /** 
+  /**
    * # 😄是否隐藏操作按钮
    */
   hideCtrl: Boolean,
 
-  /** 
+  /**
    * # 😄是否显示详情按钮
    */
   showDetail: Boolean,
 
-  /** 
+  /**
    * # 😄是否显示添加按钮
    */
   showAdd: Boolean,
 
-  /** 
+  /**
    * # 😄是否自定义删除事件
    */
   customDelete: Boolean,
 
-  /** 
+  /**
    * # 😄是否懒加载
    */
   lazy: Boolean,
 
-  /** 
+  /**
    * # 😄删除确认框提示标题
    */
   deleteTitle: {
     type: String,
-    default: '',
+    default: "",
   },
 
-  /** 
+  /**
    * # 😄删除确认框提示内容
    */
   deleteContent: {
     type: String,
-    default: '',
+    default: "",
   },
 
-  /** 
+  /**
    * # 😡已弃用 请直接使用```:entity```😡
    * @deprecated
    */
   tableEntity: {
-    type: Function as unknown as PropType<ClassConstructor<AirAbstractEntity>>,
+    type: (Function as unknown) as PropType<ClassConstructor<AirAbstractEntity>>,
     default: null,
   },
 
-  /** 
+  /**
    * # 😄表格绑定的数据实体
    */
   entity: {
-    type: Function as unknown as PropType<ClassConstructor<AirAbstractEntity>>,
+    type: (Function as unknown) as PropType<ClassConstructor<AirAbstractEntity>>,
     default: undefined,
   },
 
-  /** 
+  /**
    * # 😄树结构的标准配置
    */
   treeProps: {
     type: Object as PropType<ITreeProps>,
-    default: () => ({
-    }),
+    default: () => ({}),
   },
 
   /**
@@ -453,7 +458,15 @@ const props = defineProps({
     type: Boolean,
     default: true,
   },
-})
+
+  /**
+   * # 表格内容溢出展示的tooltip内容
+   */
+  tooltipContent: {
+    type: String,
+    default: null,
+  },
+});
 
 /**
  * 兼容使用 data 传入数据
@@ -461,27 +474,27 @@ const props = defineProps({
  */
 const showDataList = computed(() => {
   if (props.dataList.length > 0) {
-    return props.dataList
+    return props.dataList;
   }
   if (props.data.length > 0) {
-    return props.data
+    return props.data;
   }
-  return []
-})
+  return [];
+});
 
-/** 
+/**
  * 选择的字段
  */
-const selectedFieldList = ref([] as string[])
+const selectedFieldList = ref([] as string[]);
 
 /**
  * 内部使用的entity
  */
-let tableBindEntity: ClassConstructor<AirAbstractEntity> | null = null
+let tableBindEntity: ClassConstructor<AirAbstractEntity> | null = null;
 /**
  * 内部使用的配置
  */
-let entityConfig: AirEntityConfig = new AirEntityConfig()
+let entityConfig: AirEntityConfig = new AirEntityConfig();
 
 /**
  * 字段选择器是否启用
@@ -489,19 +502,21 @@ let entityConfig: AirEntityConfig = new AirEntityConfig()
 const isFieldSelectorEnabled = computed(() => {
   if (entityConfig.hideFieldSelector) {
     // 全局标记了隐藏
-    return false
+    return false;
   }
   // 读取传入配置是否隐藏
-  return !props.hideFieldSelector
-})
+  return !props.hideFieldSelector;
+});
 
 /**
  * 更新已选字段
  */
 function updateSelectedFieldList() {
-  selectedFieldList.value = []
+  selectedFieldList.value = [];
   // eslint-disable-next-line no-use-before-define
-  selectedFieldList.value = (allFieldList.value || []).filter(item => !item.removed && !item.hide).map(item => item.key || '')
+  selectedFieldList.value = (allFieldList.value || [])
+    .filter((item) => !item.removed && !item.hide)
+    .map((item) => item.key || "");
 }
 
 /**
@@ -511,89 +526,101 @@ const allFieldList = computed(() => {
   // 如果传入fieldList 优先使用fieldList
   if (props.fieldList.length > 0) {
     // 过滤没有隐藏且没有移除的列
-    return props.fieldList.filter(item => !item.removed)
-  } if (tableBindEntity) {
-    // 如果传入了Table实体
-    return (tableBindEntity.prototype as AirAbstractEntity).getTableFieldConfigList().filter(item => !item.removed)
+    return props.fieldList.filter((item) => !item.removed);
   }
-  return []
-})
+  if (tableBindEntity) {
+    // 如果传入了Table实体
+    return (tableBindEntity.prototype as AirAbstractEntity)
+      .getTableFieldConfigList()
+      .filter((item) => !item.removed);
+  }
+  return [];
+});
 
 // 初始化
 function init() {
-  tableBindEntity = props.entity || props.tableEntity || null
+  tableBindEntity = props.entity || props.tableEntity || null;
   if (tableBindEntity) {
-    entityConfig = getEntityConfig(tableBindEntity)
+    entityConfig = getEntityConfig(tableBindEntity);
   }
   // 初始更新
-  updateSelectedFieldList()
+  updateSelectedFieldList();
 }
-init()
+init();
 
 // 监听列表变化
-watch(() => props.fieldList, () => {
-  updateSelectedFieldList()
-})
+watch(
+  () => props.fieldList,
+  () => {
+    updateSelectedFieldList();
+  }
+);
 
 /**
  * 字段是否选择
  */
 function isSelected(item: AirTableFieldConfig) {
   if (!item.key) {
-    return false
+    return false;
   }
-  return selectedFieldList.value.indexOf(item.key) >= 0
+  return selectedFieldList.value.indexOf(item.key) >= 0;
 }
 
-/** 
+/**
  * 定义事件
  */
 // eslint-disable-next-line no-unused-vars
-const emits = defineEmits<{(event: 'detail', data: any): void;
+const emits = defineEmits<{
+  (event: "detail", data: any): void;
   // eslint-disable-next-line no-unused-vars
-  (event: 'onDetail', data: any): void;
+  (event: "onDetail", data: any): void;
   // eslint-disable-next-line no-unused-vars
-  (event: 'delete', data: any): void;
+  (event: "delete", data: any): void;
   // eslint-disable-next-line no-unused-vars
-  (event: 'onDelete', data: any): void;
+  (event: "onDelete", data: any): void;
   // eslint-disable-next-line no-unused-vars
-  (event: 'edit', data: any): void;
+  (event: "edit", data: any): void;
   // eslint-disable-next-line no-unused-vars
-  (event: 'onEdit', data: any): void;
+  (event: "onEdit", data: any): void;
   // eslint-disable-next-line no-unused-vars
-  (event: 'select', data: any): void;
+  (event: "select", data: any): void;
   // eslint-disable-next-line no-unused-vars
-  (event: 'onSelect', data: any): void;
+  (event: "onSelect", data: any): void;
   // eslint-disable-next-line no-unused-vars
-  (event: 'add', data: any): void;
+  (event: "add", data: any): void;
   // eslint-disable-next-line no-unused-vars
-  (event: 'onAdd', data: any): void;
+  (event: "onAdd", data: any): void;
   // eslint-disable-next-line no-unused-vars
-  (event: 'sortChange', data?: AirSort): void;
+  (event: "sortChange", data?: AirSort): void;
   // eslint-disable-next-line no-unused-vars
-  (event: 'onSortChange', data?: AirSort): void;
-}>()
+  (event: "onSortChange", data?: AirSort): void;
+}>();
 
-/** 
+/**
  * 表格dom
  */
-const airTableRef = ref<AirTableInstance>()
+const airTableRef = ref<AirTableInstance>();
 
 /**
  * Table的ID
  */
-const tableId = `tb_${Math.floor(Math.random() * 1000)}`
+const tableId = `tb_${Math.floor(Math.random() * 1000)}`;
 
 /**
  * 回显选中
  */
 function toggleSelection() {
-  if (airTableRef.value) { airTableRef.value.clearSelection() }
+  if (airTableRef.value) {
+    airTableRef.value.clearSelection();
+  }
   for (const row of props.dataList) {
     for (const selectedRow of props.selectList) {
-      if ((selectedRow as AirAbstractEntity).id === (row as AirAbstractEntity).id && airTableRef.value) {
-        airTableRef.value.toggleRowSelection(row, true)
-        continue
+      if (
+        (selectedRow as AirAbstractEntity).id === (row as AirAbstractEntity).id &&
+        airTableRef.value
+      ) {
+        airTableRef.value.toggleRowSelection(row, true);
+        continue;
       }
     }
   }
@@ -606,15 +633,15 @@ watch(
   () => props.dataList,
   () => {
     nextTick(() => {
-      toggleSelection()
+      toggleSelection();
 
       // 分页后滚动条置顶
-      const table = document.querySelector(`#${tableId}`)
-      const bodyWrapp = table?.querySelector('.el-scrollbar__wrap') as HTMLElement
-      bodyWrapp.scrollTop = 0
-    })
-  },
-)
+      const table = document.querySelector(`#${tableId}`);
+      const bodyWrapp = table?.querySelector(".el-scrollbar__wrap") as HTMLElement;
+      bodyWrapp.scrollTop = 0;
+    });
+  }
+);
 
 /**
  * 监听选择的数组列表
@@ -623,18 +650,18 @@ watch(
   () => props.selectList,
   () => {
     nextTick(() => {
-      toggleSelection()
-    })
-  },
-)
+      toggleSelection();
+    });
+  }
+);
 
 /**
  * 添加按钮点击事件
  * @param item 行数据
  */
 function handleAdd(item: any) {
-  emits('onAdd', item)
-  emits('add', item)
+  emits("onAdd", item);
+  emits("add", item);
 }
 
 /**
@@ -642,8 +669,8 @@ function handleAdd(item: any) {
  * @param item 详情数据
  */
 function handleDetail(item: any) {
-  emits('onDetail', item)
-  emits('detail', item)
+  emits("onDetail", item);
+  emits("detail", item);
 }
 
 /**
@@ -651,44 +678,44 @@ function handleDetail(item: any) {
  * @param item 编辑的数据
  */
 function handleEdit(item: any) {
-  emits('onEdit', item)
-  emits('edit', item)
+  emits("onEdit", item);
+  emits("edit", item);
 }
 
 /**
  * 单个删除 单个删除
- * @param item 
+ * @param item
  */
 async function handleDelete(item: any) {
   if (props.customDelete) {
-    emits('onDelete', item)
-    emits('delete', item)
-    return
+    emits("onDelete", item);
+    emits("delete", item);
+    return;
   }
   try {
-    let title = '删除提醒'
-    let content = '是否确认删除当前选中的数据？'
+    let title = "删除提醒";
+    let content = "是否确认删除当前选中的数据？";
     // 如果实体传入 则尝试自动获取
     if (tableBindEntity) {
-      const entityName = getClassName(tableBindEntity)
-      title = `删除${entityName}提醒`
-      content = `是否确认删除当前选中的${entityName}？`
+      const entityName = getClassName(tableBindEntity);
+      title = `删除${entityName}提醒`;
+      content = `是否确认删除当前选中的${entityName}？`;
     }
     // 如果传入配置项 则覆盖实体标注的内容
     if (props.deleteTitle) {
-      title = props.deleteTitle
+      title = props.deleteTitle;
     }
     if (props.deleteContent) {
-      content = props.deleteContent
+      content = props.deleteContent;
     }
     await new AirConfirm()
-    .setTitle(title)
-    .setContent(content)
-    .setConfirmText('确定')
-    .setCancelText('取消')
-    .warning()
-    emits('onDelete', item)
-    emits('delete', item)
+      .setTitle(title)
+      .setContent(content)
+      .setConfirmText("确定")
+      .setCancelText("取消")
+      .warning();
+    emits("onDelete", item);
+    emits("delete", item);
   } catch (e) {
     // 取消删除
   }
@@ -700,31 +727,34 @@ async function handleDelete(item: any) {
  */
 function selectChanged(list: any) {
   // 保持其他页码数据的选中状态，因为list只会返回当前页选中数据
-  const otherPage = (props.selectList || []).filter(item => props.dataList?.findIndex(data => (data as any).id === (item as any).id) === -1)
-  const selectAll = list.concat(otherPage)
-  emits('onSelect', selectAll)
-  emits('select', selectAll)
+  const otherPage = (props.selectList || []).filter(
+    (item) =>
+      props.dataList?.findIndex((data) => (data as any).id === (item as any).id) === -1
+  );
+  const selectAll = list.concat(otherPage);
+  emits("onSelect", selectAll);
+  emits("select", selectAll);
 }
 
 /**
  * 排序事件
- * @param data 
+ * @param data
  */
 function sortChanged(data: { prop: string; order: string }) {
   if (data.prop) {
-    const sort = new AirSort()
-    sort.columnName = data.prop
-    sort.sortType = data.order === 'descending' ? AirSortType.DESC : AirSortType.ASC
-    emits('sortChange', sort)
-    emits('onSortChange', sort)
+    const sort = new AirSort();
+    sort.columnName = data.prop;
+    sort.sortType = data.order === "descending" ? AirSortType.DESC : AirSortType.ASC;
+    emits("sortChange", sort);
+    emits("onSortChange", sort);
   } else {
-    emits('onSortChange', undefined)
-    emits('sortChange', undefined)
+    emits("onSortChange", undefined);
+    emits("sortChange", undefined);
   }
 }
 </script>
 
-<style lang="scss" >
+<style lang="scss">
 .ctrlRow {
   display: flex;
 
@@ -742,7 +772,7 @@ function sortChanged(data: { prop: string; order: string }) {
   }
 }
 
-.ctrlRow+.el-button {
+.ctrlRow + .el-button {
   margin-left: 12px;
 }
 
@@ -769,7 +799,7 @@ function sortChanged(data: { prop: string; order: string }) {
   }
 }
 
-.air-table-tool-bar>* {
+.air-table-tool-bar > * {
   margin-bottom: 10px;
 }
 
