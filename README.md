@@ -19,3 +19,4 @@ If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has a
 
 加油
 测试
+测试2
