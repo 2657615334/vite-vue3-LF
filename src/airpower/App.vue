@@ -11,6 +11,9 @@ const router = useRouter();
 
 router.beforeEach((to, _, next) => {
   if (!["/callback", "/login"].includes(to.path)) {
+    if (!JSON.parse(localStorage.getItem("userInfo") as string)) {
+      next("/login");
+    }
     AppConfig.setLastPath(to.path);
   }
   next();

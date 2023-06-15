@@ -37,11 +37,6 @@
         @add="onRowAdd($event)"
         @sort-change="onSort($event)"
       >
-        <template #userSex="row">
-          {{
-            UserSexRecord.find(({ key }) => key === (row.data as UserEntity).userSex)?.label || "未知"
-          }}
-        </template>
       </ATable>
     </template>
     <template #footerLeft>
@@ -59,7 +54,7 @@ import { APanel, APage, ATable, ATableToolBar, AToolBar } from "@/airpower/compo
 import { AirDateTimeHelper, AirDialogHelper, AirRandHelper } from "@/airpower/helper";
 import { AirPage } from "@/airpower/dto/AirPage";
 import { AirSort } from "@/airpower/dto/AirSort";
-import { UserEntity, UserSexRecord, UserType } from "@/entity/UserEntity";
+import { UserEntity, UserType } from "@/entity/UserEntity";
 import { UserRequestPage } from "@/model/request/UserRequestPage";
 import { UserResponsePage } from "@/model/response/UserResponsePage";
 import DialogUserEdit from "./edit.vue";

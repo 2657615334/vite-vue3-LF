@@ -79,7 +79,7 @@ export class UserEntity extends BaseEntity {
     prefixIcon: 'Calendar',
   })
   @Expose()
-  name!: string;
+  name!: string
 
   @FieldName('性别')
   @SearchField({
@@ -87,19 +87,20 @@ export class UserEntity extends BaseEntity {
   })
   @TableField({
     width: 60,
-    // enumRecord: UserSexRecord,
+    enumRecord: UserSexRecord,
+    showStatus: false,
   })
   @FormField({
     enumRecord: UserSexRecord,
     suffixIcon: 'Calendar',
   })
   @Expose({ name: 'user_sex' })
-  userSex!: UserSex;
+  userSex!: UserSex
 
   @FieldName('头像')
   @TableField()
   @Expose({ name: 'user_head' })
-  userHead!: string;
+  userHead!: string
 
   @FieldName('签名')
   @SearchField()
@@ -110,7 +111,7 @@ export class UserEntity extends BaseEntity {
     placeholder: '哈哈哈哈哈我不是下面的备注',
   })
   @Expose({ name: 'user_remark' })
-  userRemark!: string;
+  userRemark!: string
 
   @FieldName('身份')
   @SearchField({
@@ -123,9 +124,9 @@ export class UserEntity extends BaseEntity {
   })
   @FormField()
   @Expose()
-  userType!: UserType;
+  userType!: UserType
 
-  /** 
+  /**
    * 是否会员
    */
   @FieldName('会员权限')
@@ -135,7 +136,7 @@ export class UserEntity extends BaseEntity {
   })
   @SearchField()
   @Expose()
-  isVip?: boolean;
+  isVip?: boolean
 
   @FieldName('年龄')
   @SearchField({
@@ -155,7 +156,8 @@ export class UserEntity extends BaseEntity {
   @FieldName('所属部门')
   @Type(() => DepartmentEntity)
   @FormField()
-  @Expose() department!: DepartmentEntity[]
+  @Expose()
+  department!: DepartmentEntity[]
 
   @FieldName('注册时间')
   @TableField({
@@ -165,5 +167,5 @@ export class UserEntity extends BaseEntity {
     sortable: 'custom',
   })
   @Expose()
-  declare createdTime: number;
+  declare createdTime: number
 }

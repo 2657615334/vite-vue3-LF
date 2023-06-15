@@ -6,15 +6,6 @@
       </el-icon>
     </template>
     <template #body>
-      <div v-if="isShowIframe" class="iframe">
-        <iframe
-          src="http://localhost:8080/#/jtLogin"
-          width="100%"
-          height="100%"
-          scrolling="auto"
-          style="background-color: rgb(15, 17, 25)"
-        />
-      </div>
       <div>
         {{ world }}
         <el-button type="primary" @click="doNewWorld()">newWorld111</el-button>
@@ -77,7 +68,6 @@ import { UserService } from "@/service/UserService";
 import { appStore } from "@/config/store";
 import { AirDialogHelper } from "@/airpower/helper";
 
-const isShowIframe = ref(false);
 const world = computed(() => appStore().$state.hello);
 
 const doNewWorld = () => {
@@ -195,16 +185,4 @@ async function customAlert() {
     .success();
 }
 </script>
-<style scoped lang="scss">
-.iframe {
-  position: absolute;
-  top: 0;
-  right: 0;
-  left: 0;
-  bottom: 0;
-  margin: auto;
-  z-index: 999;
-  width: 95%;
-  height: 95%;
-}
-</style>
+<style scoped lang="scss"></style>

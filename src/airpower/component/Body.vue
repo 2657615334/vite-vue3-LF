@@ -49,15 +49,21 @@
             </el-breadcrumb>
           </slot>
         </div>
-        <slot name="menu">
+        <!-- <slot name="menu">
           <div class="air-menu">
             <span class="item" @click="returnToIndex"
               ><i class="airpower icon-commonicon_yindao" />控制台</span
             >
           </div>
-        </slot>
+        </slot> -->
         <slot name="user">
-          <AUser :user="user" @command="handleCommand" />
+          <AUser
+            hideLogout
+            hideProfile
+            hideTenant
+            :user="user"
+            @command="handleCommand"
+          />
         </slot>
       </div>
       <div class="air-main">
@@ -166,10 +172,10 @@ function returnToHome() {
   AppConfig.router.push("/");
 }
 
-function returnToIndex() {
-  // eslint-disable-next-line no-restricted-globals
-  location.href = AppConfig.homeUrl;
-}
+// function returnToIndex() {
+//   // eslint-disable-next-line no-restricted-globals
+//   location.href = AppConfig.homeUrl;
+// }
 
 /**
  * 判断路由是否在菜单链中

@@ -10,8 +10,6 @@
   </el-button-group>
 </template>
 
-<script lang="ts" setup="props">
-</script>
+<script lang="ts" setup="props"></script>
 
-<style scoped lang="scss">
-</style>
+<style scoped lang="scss"></style>
