@@ -15,7 +15,7 @@
     "isolatedModules": true, // 要求所有文件都是 ES Module 模块
     "noEmit": true, // 不输出文件,即编译后不会生成任何js文件
     "jsx": "preserve", // 保留原始的 JSX 代码，不进行编译
-    "types": ["vite/client"],
+    "types": ["vite/client", "node"],
     /* Linting */
     "strict": true, // 开启所有严格的类型检查
     "noUnusedLocals": true, //报告未使用的局部变量的错误
