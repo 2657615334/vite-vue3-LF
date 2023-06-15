@@ -14,6 +14,7 @@
       :default-expand-all="defaultExpandAll"
       :tree-props="treeProps"
       :data="showDataList"
+      :span-method="spanMethod"
       height="100%"
       @select="selectChanged"
       @select-all="selectChanged"
@@ -460,11 +461,12 @@ const props = defineProps({
   },
 
   /**
-   * # 表格内容溢出展示的tooltip内容
+   * # 合并行、列的方法
+   * 方法的参数是一个对象，里面包含当前行 row、当前列 column、当前行号 rowIndex、当前列号 columnIndex 四个属性。
    */
-  tooltipContent: {
-    type: String,
-    default: null,
+  spanMethod: {
+    type: Function,
+    default: () => {},
   },
 });
 

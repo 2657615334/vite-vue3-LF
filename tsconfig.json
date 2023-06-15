@@ -2,6 +2,8 @@
   "compilerOptions": {
     "target": "ESNext", // 将代码编译为最新版本的 JS
     "module": "ESNext", // 使用 ES Module 格式打包编译后的文件
+    "sourceMap": true,
+    "emitDecoratorMetadata": true,
     "useDefineForClassFields": true,
     "lib": ["ESNext", "DOM", "DOM.Iterable"], // 引入 ES 最新特性和 DOM 接口的类型定义
     "skipLibCheck": true, // 跳过对 .d.ts 文件的类型检查
@@ -13,7 +15,7 @@
     "isolatedModules": true, // 要求所有文件都是 ES Module 模块
     "noEmit": true, // 不输出文件,即编译后不会生成任何js文件
     "jsx": "preserve", // 保留原始的 JSX 代码，不进行编译
-
+    "types": ["vite/client"],
     /* Linting */
     "strict": true, // 开启所有严格的类型检查
     "noUnusedLocals": true, //报告未使用的局部变量的错误
