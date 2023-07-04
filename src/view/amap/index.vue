@@ -1,14 +1,30 @@
 <template>
   <div id="amap_container"></div>
+  <div class="polyline">
+    <div class="polyline_item" v-for="item in polylineColorList" :key="item.label">
+      <div class="polyline_item_lien" :style="{ backgroundColor: item.color }"></div>
+      <div class="polyline_item_label">{{ item.label }}</div>
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">
-import { onMounted, shallowRef, ShallowRef } from "vue";
+import { onMounted, ref, shallowRef, ShallowRef } from "vue";
 import AMapLoader from "@amap/amap-jsapi-loader";
 import "@amap/amap-jsapi-types";
 window._AMapSecurityConfig = {
   securityJsCode: "8b33d46d1353e91551cc192e23cfe2fb",
 };
+const polylineColorList = ref([
+  {
+    color: "#4aa4ea",
+    label: "登记通行线路",
+  },
+  {
+    color: "#c72a29",
+    label: "实际通行线路",
+  },
+]);
 // amap 实例
 const map: ShallowRef = shallowRef(null);
 // 图层实例
@@ -39,6 +55,7 @@ function mapSsourceCallBack(AMap: any) {
   initTraffic(AMap);
   addMapControl(AMap);
   addMarker(AMap);
+  addPolyline(AMap);
 }
 
 /**
@@ -122,6 +139,42 @@ function addMarker(AMap: Window["AMap"]) {
   map.value.add(markerList);
 }
 
+/**
+ * 添加折线
+ */
+function addPolyline(AMap: Window["AMap"]) {
+  let path = [
+    new AMap.LngLat(106.53192, 29.51419),
+    new AMap.LngLat(106.482347, 29.484527),
+    new AMap.LngLat(106.644428, 29.500297),
+    new AMap.LngLat(106.631187, 29.718143),
+  ];
+  let path2 = [
+    [new AMap.LngLat(106.574271, 29.606703), new AMap.LngLat(106.456878, 29.541145)],
+    [new AMap.LngLat(106.53384, 29.375528), new AMap.LngLat(106.227305, 29.592024)],
+  ];
+  const polyline = new AMap.Polyline({
+    path,
+    zIndex: 50,
+    strokeColor: "#4aa4ea",
+    strokeOpacity: 1,
+    strokeWeight: 6,
+    strokeStyle: "solid",
+    lineCap: "square",
+  });
+
+  const polyline2 = new AMap.Polyline({
+    path: path2,
+    zIndex: 50,
+    strokeColor: "#c72a29",
+    strokeOpacity: 1,
+    strokeWeight: 6,
+    strokeStyle: "solid",
+    lineCap: "square",
+  });
+  map.value.add([polyline, polyline2]);
+  map.value.setFitView();
+}
 onMounted(() => {
   initMap();
 });
@@ -131,5 +184,21 @@ onMounted(() => {
 #amap_container {
   height: 100%;
   width: 100%;
+}
+.polyline {
+  position: fixed;
+  right: 85px;
+  bottom: 35px;
+  width: 200px;
+  &_item {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    &_lien {
+      height: 8px;
+      width: 80px;
+    }
+  }
 }
 </style>

@@ -69,6 +69,13 @@ async function getMenuList() {
       .setPath("/amap/index")
       .setComponent("/amap/index")
   );
+  menuListRef.value.push(
+    new AirMenu()
+      .setName("大件运输监控")
+      .setId("5")
+      .setPath("/bulkTransportation")
+      .setComponent("/bulkTransportation/list")
+  );
   // TODO 上面的内容开发的时候要删掉
   AirRouterHelper.initVueRouter(menuListRef.value, "admin");
 }
